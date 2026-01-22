@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Signup Form</title>
+</head>
+<body>
+
+<h2>Signup Form</h2>
+
+<form onsubmit="showData(); return false;">
+  Name: <input type="text" id="name"><br><br>
+  Email: <input type="email" id="email"><br><br>
+  Password: <input type="password" id="password"><br><br>
+  <input type="submit" value="Signup">
+</form>
+
+<h3>Form Data</h3>
+<p id="output"></p>
+
+<script>
+function showData() {
+  var name = document.getElementById("name").value;
+  var email = document.getElementById("email").value;
+  var password = document.getElementById("password").value;
+
+  document.getElementById("output").innerHTML =
+    "Name: " + name + "<br>" +
+    "Email: " + email + "<br>" +
+    "Password: " + password;
+}
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Read More</title>
+</head>
+<body>
+
+<h2>Item Details</h2>
+
+<p>
+  This is a mobile phone with excellent features
+  <span id="dots">...</span>
+  <span id="more" style="display:none;">
+    including high-speed performance, long battery life,
+    powerful camera, and modern design.
+  </span>
+</p>
+
+<button onclick="readMore()" id="btn">Read more</button>
+
+<script>
+function readMore() {
+  var dots = document.getElementById("dots");
+  var moreText = document.getElementById("more");
+  var btn = document.getElementById("btn");
+
+  if (dots.style.display === "none") {
+    dots.style.display = "inline";
+    btn.innerHTML = "Read more";
+    moreText.style.display = "none";
+  } else {
+    dots.style.display = "none";
+    btn.innerHTML = "Read less";
+    moreText.style.display = "inline";
+  }
+}
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Student Table</title>
+</head>
+<body>
+
+<h2>Student Form</h2>
+
+<form onsubmit="addStudent(); return false;">
+  Name: <input type="text" id="sname" required>
+  Age: <input type="number" id="sage" required>
+  Class: <input type="text" id="sclass" required>
+  <button type="submit">Add Student</button>
+</form>
+
+<br>
+
+<table border="1" id="table">
+  <tr>
+    <th>Name</th>
+    <th>Age</th>
+    <th>Class</th>
+    <th>Actions</th>
+  </tr>
+</table>
+
+<br>
+
+<!-- Hidden Edit Form -->
+<div id="editForm" style="display:none;">
+  <h3>Edit Student</h3>
+  Name: <input type="text" id="editName">
+  Age: <input type="number" id="editAge">
+  Class: <input type="text" id="editClass">
+  <button onclick="updateStudent()">Update</button>
+</div>
+
+<script>
+var selectedRow = null;
+
+function addStudent() {
+  var name = sname.value;
+  var age = sage.value;
+  var cls = sclass.value;
+
+  var table = document.getElementById("table");
+  var row = table.insertRow(-1);
+
+  row.insertCell(0).innerHTML = name;
+  row.insertCell(1).innerHTML = age;
+  row.insertCell(2).innerHTML = cls;
+  row.insertCell(3).innerHTML =
+    '<button onclick="editRow(this)">Edit</button> ' +
+    '<button onclick="deleteRow(this)">Delete</button>';
+
+  document.querySelector("form").reset();
+}
+
+function deleteRow(btn) {
+  var row = btn.parentNode.parentNode;
+  row.remove();
+}
+
+function editRow(btn) {
+  selectedRow = btn.parentNode.parentNode;
+
+  editName.value = selectedRow.cells[0].innerHTML;
+  editAge.value = selectedRow.cells[1].innerHTML;
+  editClass.value = selectedRow.cells[2].innerHTML;
+
+  document.getElementById("editForm").style.display = "block";
+}
+
+function updateStudent() {
+  selectedRow.cells[0].innerHTML = editName.value;
+  selectedRow.cells[1].innerHTML = editAge.value;
+  selectedRow.cells[2].innerHTML = editClass.value;
+
+  document.getElementById("editForm").style.display = "none";
+}
+</script>
+
+</body>
+</html>
